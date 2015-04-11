@@ -12,7 +12,10 @@ import com.example.readjson.cityDomain.province;
 import com.example.readjson.db.WeatherDB;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import android.view.View;
 import android.view.Window;
@@ -40,6 +43,13 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		if(prefs.getBoolean("city_selected",false )){
+			Intent in = new Intent(this,WeatherActivity.class);
+			startActivity(in);
+			finish();
+			return;
+		}
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		
@@ -64,6 +74,11 @@ public class MainActivity extends Activity {
 					queryCities();
 				}else if(currentLevel == LEVEL_CITY){
 					citySelected = cityList.get(position);
+					String cityId= citySelected.getCityId();
+					Intent intent = new Intent(MainActivity.this,WeatherActivity.class);
+					intent.putExtra("cityid", cityId);
+					startActivity(intent);
+					finish();
 				}
 				
 				

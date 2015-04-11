@@ -19,6 +19,7 @@ import com.example.readjson.db.WeatherDB;
 
 public class util {
 	
+	
 	public void HandleProvinceAndCity(Context context,WeatherDB weatherDB){
 	String result;
 	
